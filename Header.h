@@ -1371,6 +1371,7 @@ istream& operator>>(istream& in, Bilet& b)
 	{
 		delete[] b.dataPlecare;
 	}
+	
 	b.dataPlecare = new char[strlen(buffer) + 1];
 	strcpy_s(b.dataPlecare, strlen(buffer) + 1, buffer);
 
