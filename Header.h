@@ -1,7 +1,8 @@
 #pragma once
 #include<iostream>
 #include<string>
-#include<fstream>
+#include <iomanip>
+#include <fstream>
 using namespace std;
 
 class Persoana
@@ -148,6 +149,8 @@ public:
 		}
 		return *this;
 	}
+
+	
 
 	Persoana operator+(int val)
 	{
@@ -408,6 +411,7 @@ public:
 		}
 		f.close();
 	}
+
 	Client operator=(const Client& c)
 	{
 		Persoana::operator=(c);
@@ -898,7 +902,10 @@ private:
 	int nrClase = 0;
 
 public:
+	//c-tor default
+	Avion() {
 
+	}
 	//constructori cu parametri
 	Avion(int idAvion, string model)
 	{
@@ -976,6 +983,94 @@ public:
 		delete[] capacitate;
 	}
 
+
+
+	void adaugaAvion()
+	{
+		ofstream Avion("avion.txt", ios::app);
+		system("cls");
+		cout << "Introduceti id-ul avionului" << endl;
+		cin >> idAvion;
+		cin.sync();
+		system("cls");
+		cout << "Introduceti modelul avionului" << endl;
+		cin >> model;
+		system("cls");
+
+		cout << "Introduceti numarul de clase" << endl;
+		cin >> nrClase;
+
+
+		Avion << idAvion << ' ' << model << ' ' << ' ' << nrClase << endl;
+		Avion.close();
+	}
+
+	void searchPlaneById()
+	{
+		ifstream Avion("avion.txt");
+		int str;
+		system("CLS");
+		cout << "Introduceti id-ul avionului:";
+		cin >> str;
+
+		while (Avion >> idAvion >> model >> nrClase) {
+			if (str == idAvion) {
+				system("CLS");
+				cout << "Avion gasit" << endl;
+				cout << "Id avion" << ' ' << "Model" << ' ' << "Numar clase" << endl;
+				cout << "---------------" << endl;
+				cout << idAvion << ' ' << model << ' ' << ' ' << nrClase << endl;
+			}
+		}
+
+
+		while (Avion>> idAvion) {
+			if (str != idAvion) {
+				system("CLS");
+				cout << "Nu exista niciun avion cu acest id!" << endl;
+
+			}
+		}
+		system("pause");
+	}
+
+
+
+	void editAvion()
+	{
+		int id, newId;
+		string yn;
+		ifstream Avion("avion.txt");
+		if (!Avion.eof()) {
+			Avion >> idAvion >> model >> nrClase;
+		}
+		system("cls");
+
+		cout << "Introduceti id-ul avionului:";
+		cin >> id;
+
+		if (id == idAvion)
+		{
+
+			cout << idAvion << ' ' << model << ' ' << ' ' << nrClase << endl;
+			cout << "Este corect?[y][n]:";
+			cin >> yn;
+			if (yn == "y") {
+				cout << "Introduceti noul id al avionului";
+				cin >> newId;
+				idAvion = newId;
+			}
+
+			Avion.close();
+		}
+
+		ofstream Avion2("avion.txt", ios::app);
+		Avion2 << idAvion << ' ' << model << ' ' << ' ' << nrClase<< endl;
+		Avion2.close();
+		system("pause");
+	}
+
+
 	void serializare()
 	{
 		ofstream f("avion.bin", ios::binary);
@@ -990,6 +1085,8 @@ public:
 		}
 		f.close();
 	}
+
+
 
 	void deserializare()
 	{
@@ -1211,6 +1308,10 @@ private:
 	const int anCurent = 2021;
 
 public:
+	//constructor default
+	Bilet() {
+
+	}
 	//constructori cu parametri
 	Bilet(int idBilet, string destinatie, int pretBilet) :anCurent(anCurent)
 	{
@@ -1274,6 +1375,136 @@ public:
 		delete[] dataPlecare;
 	}
 
+	void adaugaCalatorie()
+	{
+		ofstream Bilet("calatorii.txt", ios::app);
+		system("cls");
+		cout << "Introduceti id-ul noului bilet" << endl;
+		cin >> idBilet;
+		cin.sync();
+		system("cls");
+		cout << "Introduceti destinatia" << endl;
+		cin >> destinatie;
+		system("cls");
+
+		//cout << "Introduceti data plecarii" << endl;
+		//cin >> dataPlecare;
+
+		cout << "Introduceti pretul biletului" << endl;
+		cin >> pretBilet;
+
+
+		Bilet << idBilet << ' ' << destinatie << ' ' << ' ' << pretBilet << endl;
+		Bilet.close();
+		cout << "Inregistrarea a fost adaugata cu succes!";
+	}
+
+
+	//cautare bilet in baza de date
+
+	void searchBiletById()
+	{
+		ifstream Bilet("calatorii.txt");
+		int str;
+		system("CLS");
+		cout << "Introduceti id-ul biletului:";
+		cin >> str;
+
+		while (Bilet >> idBilet >> destinatie >> pretBilet) {
+			if (str == idBilet) {
+				system("CLS");
+				cout << "Bilet gasit" << endl;
+				cout << "Id bilet" << ' ' << "Destinatie" << ' ' << "Pretul biletului" << endl;
+				cout << "---------------" << endl;
+				cout << idBilet << ' ' << destinatie << ' ' << ' ' << pretBilet << 'EUR' << endl;
+			}
+		}
+
+
+		while (Bilet >> idBilet) {
+			if (str != idBilet) {
+				system("CLS");
+				cout << "Nu exista nicio calatorie cu acest id!" << endl;
+
+			}
+		}
+		system("pause");
+	}
+
+	//editeaza bilet
+	void editBilet()
+	{
+		int id, newPrice;
+		string newDestination;
+		string yn;
+		ifstream Bilet("calatorii.txt");
+		if (!Bilet.eof()) {
+			Bilet >> idBilet >> destinatie >> pretBilet;
+		}
+		system("cls");
+
+		cout << "Introduceti id-ul biletului:";
+		cin >> id;
+
+		if (id == idBilet)
+		{
+
+			cout << idBilet << ' ' << destinatie << ' ' << ' ' << pretBilet << endl;
+			cout << "Este corect?[y][n]:";
+			cin >> yn;
+			if (yn == "y") {
+				cout << "Introduceti noua destinatie si noul pret in ordinea mentionata:";
+				cin >> newDestination;
+				cin >> newPrice;
+				destinatie = newDestination;
+				pretBilet = newPrice;
+			}
+
+			Bilet.close();
+		}
+
+		ofstream Bilet2("calatorii.txt", ios::app);
+		Bilet2 << idBilet << ' ' << destinatie << ' ' << ' ' << pretBilet << endl;
+		Bilet2.close();
+		system("pause");
+	}
+
+	//afiseaza toate calatoriile
+	void afiseazaCalatorii()
+	{
+		ifstream Bilet("calatorii.txt");
+		system("CLS");
+		cout << "Calatorii care se vor desfasura in acest an:" << endl;
+		cout << "Id bilet" << ' ' << "Destinatie" << ' ' << ' ' << "Pretul biletului" << endl;
+		cout << "---------------" << endl;
+		while (Bilet >> idBilet >> destinatie >> pretBilet) {
+			cout << idBilet << '  ' << destinatie << '  ' << pretBilet << endl;
+		}
+		system("pause");
+		cin.get();
+	}
+
+	//sterge calatorii
+
+	void deleteCalatorii()
+	{
+
+		string yn;
+		cout << "Are you sure?[Y]es[N]o" << endl;
+		cin >> yn;
+		if (yn == "y") {
+			ofstream Bilet("calatorii.txt");
+			system("cls");
+			cout << "Successfully Completed!" << endl;
+			system("pause");
+			Bilet.close();
+			
+		}
+		else {
+			cout<<"Nu exista calatorii";
+		}
+	}
+
 	void serializare()
 	{
 		ofstream f("bilet.bin", ios::binary);
@@ -1321,9 +1552,13 @@ public:
 		delete[] dataPlecare;
 		dataPlecare = new char[length + 1];
 		f.read(dataPlecare, length + 1);
-
+	
 		f.close();
 	}
+
+
+
+
 
 	//operator negatie
 	bool operator!()
@@ -1493,6 +1728,7 @@ istream& operator>>(istream& in, Bilet& b)
 	{
 		delete[] b.dataPlecare;
 	}
+	
 	b.dataPlecare = new char[strlen(buffer) + 1];
 	strcpy_s(b.dataPlecare, strlen(buffer) + 1, buffer);
 
