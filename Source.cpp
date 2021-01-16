@@ -1,9 +1,198 @@
 #include<iostream>
 #include<string>
+#include <fstream>
 #include "Header.h"
 using namespace std;
 
+void add();
+void quit();
+void search();
+void deleteFile();
+
+void editFile();
+
 int main()
+{
+	Bilet b;
+    system("cls");
+    int choice;
+    cout << "1. Adaugati in baza de date" << endl;
+    cout << "2. Cautati in baza de date" << endl;
+    cout << "3. Afiseaza toate calatoriile din anul curent" << endl;
+    cout << "4. Editeaza" << endl;
+	cout << "5. Sterge"<<endl;
+    cout << "6. Exit" << endl;
+    cin >> choice;
+
+    
+    switch (choice) {
+    case 1:
+         add();
+        break;
+    case 2:
+        search();
+        break;
+    case 3:
+		b.afiseazaCalatorii();
+        break;
+    case 4:
+        editFile();
+        break;
+	case 5:
+		deleteFile();
+		break;
+    case 6:
+        quit();
+        break;
+
+        cin.get();
+
+
+    }
+}
+
+
+
+
+
+void quit()
+{
+    system("CLS");
+    cout << "Ati parasit baza de date a agentiei noastre!" << endl;
+    system("pause");
+    cin.get();
+}
+
+
+void add(){
+    int choice1;
+    system("CLS");
+    cout << "1. Adauga o noua calatorie" << endl;
+    cout << "2. Adauga un nou avion" << endl;
+    cout << "3. Adauga un nou client" << endl;
+	cout << "4. Inapoi" << endl;
+    cin >> choice1;
+    Bilet b1;
+    Avion a1;
+    switch (choice1) {
+    case 1:
+        b1.adaugaCalatorie();
+        break;
+    case 2:
+        a1.adaugaAvion();
+        break;
+    case 3:
+        break;
+	case 4:
+		main();
+		break;
+    }
+}
+
+
+
+
+void search()
+{
+    Bilet b1;
+    Avion a1;
+    int choice2;
+    system("CLS");
+
+    cout << "1. Cauta biletul dupa id" << endl;
+    cout << "2. Cauta avionul dupa id" << endl;
+    cout << "3. Cauta clientul dupa nume" << endl;
+    cout << "4. Inapoi" << endl;
+    cout << "5. Exit" << endl;
+    cin >> choice2;
+
+    switch (choice2) {
+    case 1:
+        b1.searchBiletById();
+        break;
+    case 2:
+        a1.searchPlaneById();
+        break;
+    case 3:
+        break;
+    case 4:
+		main();
+        break;
+    case 5:
+        quit();
+        break;
+    }
+}
+
+void editFile() {
+	Bilet b1;
+	Avion a1;
+	int choice4;
+    cout << "1. Editeaza calatoria" << endl;
+	cout << "2. Editeaza id-ul avionului" << endl;
+	cout << "3. Editeaza datele clientului";
+	cout << "4. Inapoi";
+	cin >> choice4;
+
+	switch (choice4) {
+	case 1:
+		b1.editBilet();
+		break;
+	case 2:
+		a1.editAvion();
+		break;
+	case 3:
+		break;
+	case 4: 
+		main();
+		break;
+
+	}
+	
+}
+
+void deleteFile() {
+	Bilet b1;
+	cout << "1. Sterge calatorii" << endl;
+	cout << "2. Sterge avioane" << endl;
+	cout << "3. Sterge clienti" << endl;
+	cout << "4. Inapoi" << endl;
+	int choice5;
+	cin >> choice5;
+	switch (choice5) {
+	case 1:
+		b1.deleteCalatorii();
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		main();
+		break;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*int main()
 {
 	Persoana p;
 	p.setNume("Popescu");
@@ -110,7 +299,7 @@ int main()
 	 char** v = { "Maldive", "Creta", "Mikonos", "Spania" };
 	 CompanieZbor c1(1, "Blue Air", 4, v);*/
 
-	int cz1[] = { 32, 35, 40 };
+	/*int cz1[] = { 32, 35, 40 };
 	Avion a1(34, "Boeing 340", cz1, 3);
 
 	int cz2[] = { 40, 50, 50 };
@@ -133,10 +322,10 @@ int main()
 	delete[] x;
 	x = nullptr;*/
 
-	Bilet b1(566, "Maldive", "12-07-2021", 150, "Ionica");
+	/*Bilet b1(566, "Maldive", "12-07-2021", 150, "Ionica");
 	Bilet b2(567, "Tenerife", "15-07-2021", 160, "Vasilica");
 	b2.setPret(170);
-	cout << b2.getPret()<<endl;
+	cout << b2.getPret();
 	
 	c7.setEmail(email);
 	c7.serializare();
@@ -153,6 +342,4 @@ int main()
 
 	b1.deserializare();
 
-
-
-}
+}*/
